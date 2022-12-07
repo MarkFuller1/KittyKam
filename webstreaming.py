@@ -24,9 +24,10 @@ outputFrame = None
 lock = threading.Lock()
 # initialize a flask object
 app = Flask(__name__)
+
+
 # initialize the video stream and allow the camera sensor to
 # warmup
-
 
 
 @app.route("/connections")
@@ -41,8 +42,10 @@ def index():
 
 
 def detect_motion(frameCount):
+    # print("detect motion")
     # grab global references to the video stream, output frame, and
     # lock variables
+
     global outputFrame, lock
     # initialize the motion detector and the total number of frames
     # read thus far
@@ -51,6 +54,7 @@ def detect_motion(frameCount):
 
     # loop over frames from the video stream
     while True:
+        # print("detectMotion loop")
         if streamIsOff():
             continue
         # read the next frame from the video stream, resize it,
@@ -90,6 +94,7 @@ def detect_motion(frameCount):
 
 
 def generate(streamer):
+    # print("generate")
     # grab global references to the output frame and lock variables
     global outputFrame, lock
     # loop over frames from the output stream
@@ -97,6 +102,7 @@ def generate(streamer):
     streamers[streamer] = getNow()
 
     while True:
+        # print("generate loop")
         restartStream()
         streamers[streamer] = getNow()
         # wait until the lock is acquired
@@ -121,7 +127,7 @@ def video_feed():
     # return the response generated along with the specific media
     # type (mime type)
     response = Response(generate(str(request.remote_addr)),
-                    mimetype="multipart/x-mixed-replace; boundary=frame")
+                        mimetype="multipart/x-mixed-replace; boundary=frame")
     return response
 
 
