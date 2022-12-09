@@ -23,7 +23,7 @@ def purgeStreamers():
                 toRemove.append(streamer)
 
         for disconnected in toRemove:
-            print("purging: " + str(streamers[streamer]))
+            print("purging: " + str(disconnected))
             del streamers[disconnected]
 
         if len(streamers) < 1:
