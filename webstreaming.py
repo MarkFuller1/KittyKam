@@ -1,6 +1,4 @@
 # import the necessary packages
-from flask_socketio import SocketIO
-from imutils.video import VideoStream
 from flask import Response
 from flask import Flask, request
 from flask import render_template
@@ -8,12 +6,10 @@ import threading
 import argparse
 import datetime
 import imutils
-import time
 import cv2
 from pyimagesearch.connections import streamers, getNow, purgeStreamers
 import asyncio
-from pyimagesearch.videomagager import stream, restartStream, streamIsOn, streamIsOff, streamRead
-import zlib
+from pyimagesearch.videomagager import stream, restartStream, streamIsOff, streamRead
 
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful when multiple browsers/tabs

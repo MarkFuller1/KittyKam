@@ -1,6 +1,4 @@
 import time
-from flask_socketio import emit
-from flask import Flask
 
 from pyimagesearch.videomagager import stopStream
 
