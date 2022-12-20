@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <preConditions>
+        <runningAs username="postgres"/>
+    </preConditions>
+    <changeSet id="0.1" author="Mark">
+        <createTable tableName="posts">
+            <column name="post_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="post_content" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_date" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="tags">
+            <column name="tag_id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="value" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="POST_TAGS">
+            <column name="post_id" type="uuid">
+                <constraints foreignKeyName="post_id" referencedTableName="posts"/>
+            </column>
+            <column name="tag_id" type="uuid">
+                <constraints foreignKeyName="tag_id" referencedTableName="tags"/>
+            </column>
+            <column name="post_tags_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0.2" author="Mark">
+        <createTable tableName="image">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="text"/>
+            <column name="type" type="text"/>
+            <column name="image" type="longblob"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="0.3" author="Mark">
+        <preConditions>
+            <not>
+                <tableExists tableName="visitors"/>
+            </not>
+        </preConditions>
+        <createTable tableName="visitors">
+            <column name="pk" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ip" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0.4" author="Mark">
+        <preConditions>
+            <not>
+                <tableExists tableName="geo_data"/>
+            </not>
+        </preConditions>
+        <createTable tableName="geo_data">
+            <column name="pk" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ip" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lat" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lon" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meta" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0.5" author="Mark">
+        <dropNotNullConstraint tableName="geo_data" columnName="lat"/>
+        <dropNotNullConstraint tableName="geo_data" columnName="lon"/>
+    </changeSet>
+</databaseChangeLog>
