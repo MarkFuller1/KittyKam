@@ -1,0 +1,17 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: sudo /usr/bin/mvn clean compile
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - run: echo ${{secrets.SSHPASSWORD}} | sudo -S systemctl restart raspi.service
