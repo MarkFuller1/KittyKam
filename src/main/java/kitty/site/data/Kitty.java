@@ -7,10 +7,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+
 public class Kitty{
 
     public static void main(String[] args) {
         SpringApplication.run(Kitty.class, args);
+
     }
 
     @Bean
