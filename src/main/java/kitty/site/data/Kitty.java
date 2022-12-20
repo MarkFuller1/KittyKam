@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class Kitty{
 
     public static void main(String[] args) {
-        SpringApplication.run(IThoughtILearnedApplication.class, args);
+        SpringApplication.run(Kitty.class, args);
     }
 
     @Bean
