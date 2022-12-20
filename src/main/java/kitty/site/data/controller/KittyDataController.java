@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -21,9 +22,15 @@ public class KittyDataController {
     KittyDataRepository kittyDataRepository;
 
     @GetMapping
-    public ResponseEntity<String> getAllGeoData() {
+    public ResponseEntity<String> saveData() {
         log.info("Recieved new message");
         var res = kittyDataRepository.save(new KittyData(UUID.randomUUID(), LocalDateTime.now()));
         return ResponseEntity.ok(res.toString());
+    }
+
+    @GetMapping("/lastWeek")
+    public ResponseEntity<List<KittyData>> getLastWeek() {
+        var now = LocalDateTime.now();
+        return ResponseEntity.ok(kittyDataRepository.findByTimestampGreaterThanEqual(now.minusDays(7)));
     }
 }
