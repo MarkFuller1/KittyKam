@@ -1,10 +1,10 @@
-package my.site.ithoughtilearned;
+package kitty.site.data;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class IThoughtILearnedApplicationTests {
+class KittyDataApplicationTests {
 
 	@Test
 	void contextLoads() {
