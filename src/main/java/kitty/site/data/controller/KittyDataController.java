@@ -7,6 +7,7 @@ import kitty.site.data.service.KittyProcessingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,4 +44,11 @@ public class KittyDataController {
   public ResponseEntity<Bar> getWeekbarChar() {
    return ResponseEntity.ok(kittyProcessingService.buildBarChartOneWeek());
   }
+
+  @DeleteMapping("/deleteData")
+  public ResponseEntity<String> deleteData(){
+    Long l = kittyDataRepository.deleteAll();
+    return ResponseEntity.ok(Long.valueOf(l).toString());
+  }
+  
 }
