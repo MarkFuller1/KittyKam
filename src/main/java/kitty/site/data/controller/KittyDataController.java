@@ -47,8 +47,8 @@ public class KittyDataController {
 
   @DeleteMapping("/deleteData")
   public ResponseEntity<String> deleteData(){
-    Long l = kittyDataRepository.deleteAll();
-    return ResponseEntity.ok(Long.valueOf(l).toString());
+    kittyDataRepository.deleteAll();
+    return ResponseEntity.ok("deleted");
   }
   
 }
