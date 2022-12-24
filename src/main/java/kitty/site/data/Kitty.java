@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 
-public class Kitty{
+public class Kitty {
 
     public static void main(String[] args) {
         SpringApplication.run(Kitty.class, args);
