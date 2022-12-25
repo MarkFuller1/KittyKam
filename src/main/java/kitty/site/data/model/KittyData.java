@@ -17,6 +17,7 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 
 import static kitty.site.data.service.KittyProcessingService.GROUPING_MARGIN;
+import static kitty.site.data.util.Util.getMillis;
 
 @Slf4j
 @Data
@@ -45,10 +46,6 @@ public class KittyData implements Comparable<KittyData>, Difference<KittyData, B
         return isWithinMarginCompare(first, second, (KittyData f, KittyData s) -> {
             return Math.abs(getMillis(f.getTimestamp()) - getMillis(s.getTimestamp())) < GROUPING_MARGIN;
         });
-    }
-
-    public static Long getMillis(LocalDateTime time) {
-        return time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     @Override

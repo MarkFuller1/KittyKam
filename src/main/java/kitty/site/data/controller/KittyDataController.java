@@ -1,7 +1,8 @@
 package kitty.site.data.controller;
 
-import kitty.site.data.KittyDataRepository;
+import kitty.site.data.repository.KittyDataRepository;
 import kitty.site.data.model.Bar;
+import kitty.site.data.model.KittyEvent;
 import kitty.site.data.model.KittyData;
 import kitty.site.data.service.KittyProcessingService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -22,7 +24,7 @@ import java.util.UUID;
 public class KittyDataController {
 
   @Autowired
-  KittyDataRepository kittyDataRepository;
+  kitty.site.data.repository.KittyDataRepository kittyDataRepository;
 
   @Autowired
   KittyProcessingService kittyProcessingService;
@@ -42,13 +44,29 @@ public class KittyDataController {
 
   @GetMapping("/lastWeek/bar")
   public ResponseEntity<Bar> getWeekbarChar() {
-   return ResponseEntity.ok(kittyProcessingService.buildBarChartOneWeek());
+    return ResponseEntity.ok(kittyProcessingService.buildBarChartOneWeek());
+  }
+
+  @GetMapping("/mostRecent")
+  public ResponseEntity<KittyData> getMostRecentEvent() {
+    return ResponseEntity.ok(kittyDataRepository.findFirstByOrderByTimestampDesc());
+  }
+
+  @GetMapping("/lastDayEventCount")
+  public ResponseEntity<Integer> getLastDayEventCount() {
+    return ResponseEntity.ok(kittyDataRepository.findByTimestampGreaterThanEqual(LocalDateTime.now().minusHours(24)).size());
+  }
+
+
+  @GetMapping("/records")
+  public ResponseEntity<List<Optional<KittyEvent>>> getLongestAndShortest() {
+    return ResponseEntity.ok(kittyProcessingService.getLongestAndShortest());
   }
 
   @DeleteMapping("/deleteData")
-  public ResponseEntity<String> deleteData(){
+  public ResponseEntity<String> deleteData() {
     kittyDataRepository.deleteAll();
     return ResponseEntity.ok("deleted");
   }
-  
+
 }
