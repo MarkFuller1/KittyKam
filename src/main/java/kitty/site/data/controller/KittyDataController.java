@@ -54,7 +54,7 @@ public class KittyDataController {
 
   @GetMapping("/lastDayEventCount")
   public ResponseEntity<Integer> getLastDayEventCount() {
-    return ResponseEntity.ok(kittyDataRepository.findByTimestampGreaterThanEqual(LocalDateTime.now().minusHours(24)).size());
+    return ResponseEntity.ok(kittyProcessingService.lastDayEventCount());
   }
 
 

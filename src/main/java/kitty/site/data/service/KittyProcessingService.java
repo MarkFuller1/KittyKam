@@ -73,6 +73,10 @@ public class KittyProcessingService {
 
   }
 
+  public int lastDayEventCount(){
+    return collate(kittyDataRepository.findByTimestampGreaterThanEqual(LocalDateTime.now().minusHours(24))).size();
+  }
+
   public static List<List<KittyData>> collate(List<KittyData> data) {
 
     Collections.sort(data);
